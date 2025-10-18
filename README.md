@@ -1,25 +1,58 @@
 # 🐾 Pet Management API - Spring Boot REST Service
 
 A simple CRUD REST API for managing pets, built with Spring Boot 3
+
+## 🎯 Key Feature
+The key feature is to implement a data access layer that abstracts away the database details, 
+making easy the transitions to different database (relational or not relational).
+
+**Supported Storage Options:**
+- **In-Memory** (`in-memory` profile): Thread-safe ConcurrentHashMap for testing/mocking
+- **PostgreSQL** (`jpa` profile): JPA/Hibernate with relational database
+- **MongoDB** (`mongodb` profile): NoSQL document database (ready for non-relational migration)
+
+
+
 ---
 
-##  Prerequisites
+## ⚙️ Prerequisites
 
-You only need **Docker Desktop** installed on your machine
+You only need **Docker** installed on your machine
 
 ---
 
-## Configuration
-This project can run with three different data storage options. You can easily switch between them by editing a single file.
+## 🔧 Configuration - Switch Database with One Line
 
-To select your repository, open the src/main/resources/application.properties file and follow the instructions below.
-- in-memory repository (a simple ConcurrentHashMap) that mocks a real database:
-  - on src/main/resources/application.properties file, must be active only this row: "spring.profiles.active=in-memory"
-- jpa repository (this repository is connected to PostgreSQL that runs on Docker):
-  - on src/main/resources/application.properties file, must be active only this row: "spring.profiles.active=jpa"
-- mongodb repository (this repository is connected to MongoDB that runs on Docker):
-  - on src/main/resources/application.properties file, must be active only this row: "spring.profiles.active=mongodb"
+### How to Switch Between Databases
 
+Edit `src/main/resources/application.properties` and set the active profile:
+
+```properties
+# Option 1: In-Memory (Mock Database)
+spring.profiles.active=in-memory
+
+# Option 2: PostgreSQL (Relational Database)
+# spring.profiles.active=jpa
+
+# Option 3: MongoDB (Non-Relational Database)
+# spring.profiles.active=mongodb
+```
+
+The application automatically uses the correct DAO implementation thanks to Spring profiles.
+
+### Idea Behind
+
+```
+Service Layer (Database-Agnostic)
+       ↓
+   PetDao Interface
+       ↓
+   ┌──────┴──────┬──────────────┐
+   ↓             ↓              ↓
+InMemoryPetDao  JpaPetDaoImpl  MongoPetDaoImpl
+(@Profile:      (@Profile:     (@Profile:
+in-memory)      jpa)           mongodb)
+```
 
 ## Quick Start
 
