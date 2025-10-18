@@ -22,7 +22,3 @@ INSERT INTO pets (name, species, age, owner_name) VALUES
     ('Whiskers', 'Cat', 3, 'Emily White'),
     ('Cooper', 'Dog', 2, 'David Lee'),
     ('Shadow', 'Cat', 4, 'Lisa Garcia');
-
--- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_pets_species ON pets(species);
-CREATE INDEX IF NOT EXISTS idx_pets_owner_name ON pets(owner_name);
