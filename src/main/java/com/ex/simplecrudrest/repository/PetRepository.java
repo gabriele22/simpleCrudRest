@@ -35,9 +35,8 @@ public interface PetRepository {
     /**
      * Deletes a pet by its ID
      * @param id the pet ID
-     * @return true if the pet was deleted, false if not found
      */
-    boolean deleteById(Long id);
+    void deleteById(Long id);
 
     /**
      * Checks if a pet exists by its ID

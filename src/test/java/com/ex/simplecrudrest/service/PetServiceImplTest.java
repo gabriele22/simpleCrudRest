@@ -188,7 +188,6 @@ class PetServiceImplTest {
     void shouldDeletePetSuccessfully() {
         // Given
         when(petRepository.existsById(1L)).thenReturn(true);
-        when(petRepository.deleteById(1L)).thenReturn(true);
 
         // When
         petService.deletePet(1L);

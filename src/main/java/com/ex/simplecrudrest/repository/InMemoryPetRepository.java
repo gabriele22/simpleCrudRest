@@ -40,8 +40,8 @@ public class InMemoryPetRepository implements PetRepository {
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        return database.remove(id) != null;
+    public void deleteById(Long id) {
+        database.remove(id);
     }
 
     @Override
