@@ -9,6 +9,16 @@ You only need **Docker Desktop** installed on your machine
 
 ---
 
+## Configuration
+This project can run with two different data storage options. You can easily switch between them by editing a single file.
+
+To select your repository, open the src/main/resources/application.properties file and follow the instructions below.
+- in-memory repository (a simple ConcurrentHashMap) that mock a real db:
+  - on src/main/resources/application.properties file, must be active only this row:"spring.profiles.active=in-memory"
+- jpa repository (this repository is connected to the postgres that run on docker):
+  - on src/main/resources/application.properties file, must be active only this row:"#spring.profiles.active=jpa"
+
+
 ## Quick Start
 
 ### 1. Start the Application
