@@ -1,4 +1,4 @@
-package com.ex.simplecrudrest.repository;
+package com.ex.simplecrudrest.dao;
 
 import com.ex.simplecrudrest.model.Pet;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
  * This abstraction allows easy switching between different persistence mechanisms
  * (e.g., from relational to non-relational databases) without affecting the service layer.
  */
-public interface PetRepository {
+public interface PetDao extends Dao<Pet, Long>{
 
     /**
      * Saves a new pet or updates an existing one
@@ -44,6 +44,10 @@ public interface PetRepository {
      * @return true if the pet exists, false otherwise
      */
     boolean existsById(Long id);
+
+    /**
+     *  @return number of different species
+     */
 
     int getNumberOfDifferentSpecies();
 }

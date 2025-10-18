@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "pets")
-public class Pet {
+public class Pet implements PersistanceObject{
 
     /**
      * Unique identifier for the pet (auto-generated)

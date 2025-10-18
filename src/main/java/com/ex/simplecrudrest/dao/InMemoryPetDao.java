@@ -1,4 +1,4 @@
-package com.ex.simplecrudrest.repository;
+package com.ex.simplecrudrest.dao;
 
 import com.ex.simplecrudrest.model.Pet;
 import org.springframework.context.annotation.Profile;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 @Repository
 @Profile("in-memory")
-public class InMemoryPetRepository implements PetRepository {
+public class InMemoryPetDao implements PetDao {
 
     private final Map<Long, Pet> database = new ConcurrentHashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
