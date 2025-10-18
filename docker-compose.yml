@@ -10,11 +10,31 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
     networks:
       - pet-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U petuser -d petdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    image: mongo:7-jammy
+    container_name: petdb-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: petuser
+      MONGO_INITDB_ROOT_PASSWORD: petpass123
+      MONGO_INITDB_DATABASE: petdb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - pet-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,11 +47,21 @@ services:
     ports:
       - "8080:8080"
     environment:
+      # PostgreSQL connection (used when spring.profiles.active=jpa)
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/petdb
       SPRING_DATASOURCE_USERNAME: petuser
       SPRING_DATASOURCE_PASSWORD: petpass123
+      # MongoDB connection (used when spring.profiles.active=mongodb)
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: petdb
+      SPRING_DATA_MONGODB_USERNAME: petuser
+      SPRING_DATA_MONGODB_PASSWORD: petpass123
+      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
     depends_on:
       postgres:
+        condition: service_healthy
+      mongodb:
         condition: service_healthy
     networks:
       - pet-network
@@ -55,6 +85,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  mongodb_data:
     driver: local
   pgadmin_data:
     driver: local

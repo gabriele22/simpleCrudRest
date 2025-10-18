@@ -10,13 +10,15 @@ You only need **Docker Desktop** installed on your machine
 ---
 
 ## Configuration
-This project can run with two different data storage options. You can easily switch between them by editing a single file.
+This project can run with three different data storage options. You can easily switch between them by editing a single file.
 
 To select your repository, open the src/main/resources/application.properties file and follow the instructions below.
-- in-memory repository (a simple ConcurrentHashMap) that mock a real db:
-  - on src/main/resources/application.properties file, must be active only this row:"spring.profiles.active=in-memory"
-- jpa repository (this repository is connected to the postgres that run on docker):
-  - on src/main/resources/application.properties file, must be active only this row:"#spring.profiles.active=jpa"
+- in-memory repository (a simple ConcurrentHashMap) that mocks a real database:
+  - on src/main/resources/application.properties file, must be active only this row: "spring.profiles.active=in-memory"
+- jpa repository (this repository is connected to PostgreSQL that runs on Docker):
+  - on src/main/resources/application.properties file, must be active only this row: "spring.profiles.active=jpa"
+- mongodb repository (this repository is connected to MongoDB that runs on Docker):
+  - on src/main/resources/application.properties file, must be active only this row: "spring.profiles.active=mongodb"
 
 
 ## Quick Start
@@ -36,7 +38,8 @@ Open a terminal in the project directory and run:
 
 The script will:
 - ✅ Build your application (first time: ~2-3 minutes)
-- ✅ Start PostgreSQL database
+- ✅ Start PostgreSQL database (if using JPA profile)
+- ✅ Start MongoDB database (if using MongoDB profile)
 - ✅ Load sample data (10 pets)
 - ✅ Start your API
 
@@ -150,6 +153,7 @@ docker compose down -v
 - **API Base:** http://localhost:8080
 - **Swagger UI:** http://localhost:8080/swagger-ui/index.html
 - **PostgreSQL:** localhost:5432
+- **MongoDB:** localhost:27017
 - **pgAdmin:** http://localhost:5050
 
 ### Commands
