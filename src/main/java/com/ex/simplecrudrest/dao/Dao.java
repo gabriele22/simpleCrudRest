@@ -1,11 +1,11 @@
 package com.ex.simplecrudrest.dao;
 
-import com.ex.simplecrudrest.model.PersistanceObject;
+import com.ex.simplecrudrest.model.PersistenceObject;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface Dao<PO extends PersistanceObject, ID> {
+public interface Dao<PO extends PersistenceObject, ID> {
 
     PO save(PO po);
 

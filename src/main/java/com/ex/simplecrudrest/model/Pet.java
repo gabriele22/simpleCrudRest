@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pet implements PersistanceObject {
+public class Pet implements PersistenceObject {
 
     /**
      * Unique identifier for the pet
