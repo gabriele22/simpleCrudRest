@@ -44,4 +44,6 @@ public interface PetRepository {
      * @return true if the pet exists, false otherwise
      */
     boolean existsById(Long id);
+
+    int getNumberOfDifferentSpecies();
 }

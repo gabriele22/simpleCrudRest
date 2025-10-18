@@ -1,11 +1,13 @@
 package com.ex.simplecrudrest.repository;
 
 import com.ex.simplecrudrest.model.Pet;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * In-memory implementation of PetRepository.
@@ -14,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * implementation without changing the service layer.
  */
 @Repository
+@Profile("in-memory")
 public class InMemoryPetRepository implements PetRepository {
 
     private final Map<Long, Pet> database = new ConcurrentHashMap<>();
@@ -47,5 +50,13 @@ public class InMemoryPetRepository implements PetRepository {
     @Override
     public boolean existsById(Long id) {
         return database.containsKey(id);
+    }
+
+    @Override
+    public int getNumberOfDifferentSpecies() {
+        return database.values().stream()
+                .map(Pet::getSpecies)
+                .collect(Collectors.toSet())
+                .size();
     }
 }

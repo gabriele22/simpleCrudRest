@@ -65,4 +65,10 @@ public class PetServiceImpl implements PetService {
         }
         petRepository.deleteById(id);
     }
+
+    @Override
+    public int getNumberOfDifferentSpecies() {
+        return petRepository.getNumberOfDifferentSpecies();
+    }
+
 }

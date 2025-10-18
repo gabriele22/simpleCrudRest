@@ -105,4 +105,19 @@ public class PetController {
         petService.deletePet(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    /**
+     * Retrieves a pet by ID
+     */
+    @GetMapping("/species")
+    @Operation(summary = "Get number of different species",
+            description = "Retrieves number of different species present in the db")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200")
+    })
+    public ResponseEntity<Integer> getDifferentSpecies() {
+        int numberOfDifferentSpecies = petService.getNumberOfDifferentSpecies();
+        return ResponseEntity.ok(numberOfDifferentSpecies);
+    }
 }

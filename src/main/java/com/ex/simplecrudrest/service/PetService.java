@@ -48,4 +48,7 @@ public interface PetService {
      * @throws PetNotFoundException if pet not found
      */
     void deletePet(Long id);
+
+
+    int getNumberOfDifferentSpecies();
 }
